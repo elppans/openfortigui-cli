@@ -23,6 +23,7 @@ listar_vpns
 
 # Solicita ao usuário que escolha uma VPN
 read -p "Digite o nome da VPN para conectar: " vpn_selecionada
+clear
 
 # Verifica se a VPN existe (implementação básica)
 if grep -q "^name=$vpn_selecionada" "$HOME"/.openfortigui/vpnprofiles/*; then
