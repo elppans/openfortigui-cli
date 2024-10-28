@@ -13,6 +13,7 @@ conectar_vpn() {
   # openvpn --config ~/.openfortigui/vpnprofiles/$1.ovpn
   /usr/bin/openfortigui --start-vpn --vpn-name "$1" --main-config "$HOME"/.openfortigui/main.conf &>>/tmp/"$1".log &
   echo "$1" > /tmp/openfortigui-cli_start.log
+  clear
 }
 
 # Iniciar a VPN
@@ -55,7 +56,10 @@ status_vpn() {
 log_vpn() {
   local lvpn
   lvpn="$(cat /tmp/openfortigui-cli_start.log)"
-  tail -f /tmp/"$lvpn".log
+  echo "Acessando o log da ultima conexao iniciada..."
+  echo -e "Para sair do log, aperte \"CTRL+C\" e depois \"q\""
+  sleep 5
+  tail -f /tmp/"$lvpn".log | less
   clear
 }
 
