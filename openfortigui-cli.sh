@@ -11,7 +11,8 @@ listar_vpns() {
 conectar_vpn() {
   # Substitua "openvpn" pelo comando correto para iniciar a sua VPN
   # openvpn --config ~/.openfortigui/vpnprofiles/$1.ovpn
-  sudo -E /usr/bin/openfortigui --start-vpn --vpn-name "$1" --main-config "$HOME"/.openfortigui/main.conf &
+  /usr/bin/openfortigui --start-vpn --vpn-name "$1" --main-config "$HOME"/.openfortigui/main.conf &>>/tmp/"$1".log &
+  echo "$1" > /tmp/openfortigui-cli_start.log
 }
 
 # Iniciar a VPN
@@ -23,7 +24,7 @@ listar_vpns
 
 # Solicita ao usuário que escolha uma VPN
 read -p "Digite o nome da VPN para conectar: " vpn_selecionada
-clear
+#clear
 
 # Verifica se a VPN existe (implementação básica)
 if grep -q "^name=$vpn_selecionada" "$HOME"/.openfortigui/vpnprofiles/*; then
@@ -50,19 +51,29 @@ status_vpn() {
   clear
 }
 
+# Verificar o log online
+log_vpn() {
+  local lvpn
+  lvpn="$(cat /tmp/openfortigui-cli_start.log)"
+  tail -f /tmp/"$lvpn".log
+  clear
+}
+
 # Menu interativo (opcional)
 while true; do
   echo "1. Iniciar VPN"
   echo "2. Parar VPN"
   echo "3. Verificar status"
-  echo "4. Sair"
+  echo "4. Verificar log online"
+  echo "5. Sair"
   read option
 
   case $option in
     1) start_vpn ;;
     2) stop_vpn ;;
     3) status_vpn ;;
-    4) exit ;;
-    *) echo "Opção inválida" ;;
+    4) log_vpn ;;
+    5) exit ;;
+    *) echo "Opção inválida" && sleep 2 && clear ;;
   esac
 done
