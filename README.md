@@ -6,6 +6,10 @@ ___
 
 Este script em Bash foi desenvolvido para automatizar as tarefas de conexão, desconexão e gerenciamento de VPNs configuradas no OpenFortiGui. Ele oferece uma interface de linha de comando intuitiva para interagir com as VPNs, simplificando o processo e evitando erros manuais.
 
+**Dependências**
+
+Pacote [openfortigui](https://hadler.me/linux/openfortigui)
+
 **Funcionalidades:**
 
 * **Listagem de VPNs:** Exibe uma lista completa das VPNs disponíveis, facilitando a seleção.
