@@ -11,7 +11,7 @@ listar_vpns() {
 conectar_vpn() {
   # Substitua "openvpn" pelo comando correto para iniciar a sua VPN
   # openvpn --config ~/.openfortigui/vpnprofiles/$1.ovpn
-  /usr/bin/openfortigui --start-vpn --vpn-name "$1" --main-config "$HOME"/.openfortigui/main.conf &>>/tmp/"$1".log &
+  sudo /usr/bin/openfortigui --start-vpn --vpn-name "$1" --main-config "$HOME"/.openfortigui/main.conf &>>/tmp/"$1".log &
   echo "$1" > /tmp/openfortigui-cli_start.log
   clear
 }
